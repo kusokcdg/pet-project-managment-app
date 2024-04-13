@@ -1,9 +1,24 @@
+import logo from '../assets/no-projects.png';
+
 export default function Entry() {
     return (
-        <>
-        <p>No Project Selected</p>
-        <p>Select a project or get started with a new one</p>
-        <button>Create new project</button>
-        </>
+        <div className="p-4 ml-64 mt-28 ">
+            {/* ml-64 mt-28 w-screen h-screen  */}
+            <div className=' py-2 px-4 flex flex-col items-center justify-center'>
+                <img src={logo} alt="picture" className='h-28 w-28 mx-auto' />
+                <div className='p-4 font-sans text-2xl font-bold'>
+                    No Project Selected
+                </div>
+                <div className=' text-zinc-400'>
+                    Select a project or get started with a new one
+                </div>
+                <button className="mt-8 py-2 px-4 text-neutral-500 bg-stone-900  rounded-md  hover:bg-neutral-700 ">
+                    Create new project
+                </button>
+            </div>
+
+
+
+        </div>
     );
 }

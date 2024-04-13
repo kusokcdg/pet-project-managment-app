@@ -7,7 +7,7 @@ function App() {
     <>
       <SideBar />
       {/* <Entry /> */}
-      {/* <CreateProject /> */}
+      <CreateProject />
     </>
   );
 }
