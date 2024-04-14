@@ -6,7 +6,7 @@ export default function CreateProject() {
                 <button className="w-28 py-2 px-4 text-neutral-500 bg-stone-900  rounded-md  hover:bg-neutral-700 ">Save</button>
             </div>
             <div className="space-y-4">
-                <div className="mb-6">
+                <div>
                     <label className="block uppercase font-semibold ">Title</label>
                     <input className="w-full bg-stone-200  outline-0 focus:border-b-2 border-stone-800" type="text" />
                 </div>
@@ -18,7 +18,9 @@ export default function CreateProject() {
                     <label className="block uppercase font-semibold">Due date</label>
                     <input className="w-full bg-stone-200  outline-0 focus:border-b-2 border-stone-800" type="date" />
                 </div>
+
             </div >
+
         </div>
     );
 }
