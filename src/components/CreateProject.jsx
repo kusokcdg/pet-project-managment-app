@@ -8,15 +8,15 @@ export default function CreateProject() {
             <div className="space-y-4">
                 <div>
                     <label className="block uppercase font-semibold ">Title</label>
-                    <input className="w-full bg-stone-200  outline-0 focus:border-b-2 border-stone-800" type="text" />
+                    <input className="w-full bg-stone-200 border-b-2 outline-0 focus:border-stone-800" type="text" />
                 </div>
                 <div>
                     <label className="block uppercase font-semibold">Description</label>
-                    <textarea className="w-full bg-stone-200  outline-0 focus:border-b-2 border-stone-800" cols="30" rows="3"></textarea>
+                    <textarea className="w-full bg-stone-200 border-b-2 outline-0 focus:border-stone-800" cols="30" rows="3"></textarea>
                 </div>
                 <div>
                     <label className="block uppercase font-semibold">Due date</label>
-                    <input className="w-full bg-stone-200  outline-0 focus:border-b-2 border-stone-800" type="date" />
+                    <input className="w-full bg-stone-200 border-b-2 outline-0 focus:border-stone-800" type="date" />
                 </div>
 
             </div >
