@@ -4,10 +4,12 @@ import Entry from "./components/Entry";
 import CreateProject from "./components/CreateProject";
 import Project from "./components/Project";
 
-
 function App() {
   const [projects, setProjects] = useState([]);
   const [isAddPrj, setIsAddPrj] = useState(false);
+  const [selectedProject, setProjectSelected] = useState(undefined);
+
+  // const listTitles = projects.length > 0 ? projects.map(prj => prj.title) : [];
 
   function handleAddPrj() {
     setIsAddPrj((isAddPrj) => !isAddPrj);
@@ -30,16 +32,25 @@ function App() {
     setIsAddPrj((isAddPrj) => !isAddPrj);
   }
 
+  function handleChooseProject(createdProjects, chooseTitle) {
+    setProjectSelected(createdProjects.find(
+      project => {return project.title === chooseTitle}
+      )
+    );
+  }
+
   return (
     <>
       <SideBar
+        createdProjects={projects}
         onAddPrj={handleAddPrj}
         isDisable={isAddPrj}
+        onProjectClick={handleChooseProject}
       />
-      {!isAddPrj && <Entry onAddPrj={handleAddPrj} />}
+      {(!isAddPrj && !selectedProject) && <Entry onAddPrj={handleAddPrj} />}
       {isAddPrj && <CreateProject onSave={handleCreateProject} onExit={handleCancelCreateProject} />}
       {console.log(projects)}
-      {/* <Project></Project> */}
+      {selectedProject && <Project prj={selectedProject}></Project>}
     </>
   );
 }
