@@ -1,4 +1,4 @@
-export default function SideBar({ createdProjects, isDisable, onAddPrj, onProjectClick }) {
+export default function SideBar({ createdProjects, isDisable, onAddPrj, onClickProject }) {
     const listTitles = createdProjects.length > 0 ? createdProjects.map(prj => prj.title) : [];
     const isEmptyListTitle = listTitles.length > 0 ? true : false;
 
@@ -35,7 +35,7 @@ export default function SideBar({ createdProjects, isDisable, onAddPrj, onProjec
                         <li key={`${title}`}>
                             <button className="text-left w-full pl-2 py-1 rounded-sm hover:bg-neutral-600 hover:text-stone-300"
                                 disabled={isDisable}
-                                onClick={() => onProjectClick(createdProjects,title)}
+                                onClick={() => onClickProject(createdProjects,title)}
                             >
                                 {title}
                             </button>

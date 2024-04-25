@@ -1,4 +1,19 @@
-export default function Project({prj}) {
+import { forwardRef, useRef, useImperativeHandle } from 'react';
+
+const Project = forwardRef(function Project({ prj, onAddTask }, ref) {
+    const task = useRef();
+
+    useImperativeHandle(ref, () => {
+        return {
+            add() {
+                return task.current.value;
+            },
+            clear() {
+                task.current.value = '';
+            }
+        }
+    })
+
     return (
         <div className="px-6 pt-28 ml-64 ">
 
@@ -13,8 +28,11 @@ export default function Project({prj}) {
             <hr className="h-0.5 my-4 rounded-md bg-stone-900 border-x" />
             <p className="my-4 font-sans font-semibold text-3xl">Tasks</p>
             <div className="my-4">
-                <input className="bg-stone-300 rounded focus:border-blue-500 " type="text"></input>
-                <button className="ml-4">Add Task</button>
+                <input className="bg-stone-300 rounded focus:border-blue-500 "
+                    type="text"
+                    ref={task}
+                />
+                <button className="ml-4" onClick={onAddTask}>Add Task</button>
             </div>
             {/* <p className="mt-4">This project doesnt have any tasks yet.</p> */}
             <div className=" px-2 py-2 rounded bg-stone-200">
@@ -25,4 +43,6 @@ export default function Project({prj}) {
             </div>
         </div>
     );
-}
+})
+
+export default Project;
