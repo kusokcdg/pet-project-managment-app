@@ -1,31 +1,29 @@
 import { useState, useRef } from "react";
+
 import SideBar from "./components/SideBar";
 import Entry from "./components/Entry";
 import CreateProject from "./components/CreateProject";
 import Project from "./components/Project";
 
-let ii = 0;
+const TEMP = [
+  {
+    title: "Vacation",
+    date: "2024-05-09",
+    description: "Tracking the tasks I’ll be doing on vacation.",
+    tasks: ['Learn React','Visit Grodno','Introduce girlfriend to parents']
+  }
+];
 
 function App() {
-  const taskProject = useRef();
-  const [projects, setProjects] = useState([]);
-  const [isAddPrj, setIsAddPrj] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(undefined);
- console.log(ii);
- ii++;
- console.log(isAddPrj);
-  // const P = {
-  //   title:'test',
-  //   tasks:[]
-  // }
-  // P.tasks.push('sd');
-  // P.tasks.push('sd');
-  // console.log(P);
-  // {selectedProject&& console.log(selectedProject.tasks)}
-  // const listTitles = projects.length > 0 ? projects.map(prj => prj.title) : [];
+  const [projects, setProjects] = useState(TEMP);
+  const [selectedProject, setSelectedProject] = useState(TEMP[0]);
+
+  const [isAddPrj, setIsAddPrj] = useState(false);  
+  const taskProject = useRef(null);
 
   function handleAddPrj() {
-    setIsAddPrj((isAddPrj) => !isAddPrj);
+    setIsAddPrj(!isAddPrj);
+    setSelectedProject(undefined);
   }
 
   function handleCreateProject(objPrj) {
@@ -47,28 +45,29 @@ function App() {
 
   function handleChooseProject(createdProjects, chooseTitle) {
     setSelectedProject(createdProjects.find(
-      project => { return project.title === chooseTitle }
-    ));
+      project =>  project.title === chooseTitle));
   }
 
-  function handleAddTask() {
+  function handleAddTask(keyTitle) {
     const newTask = taskProject.current.add();
     taskProject.current.clear();
-    // setSelectedProject((selectedPrj) => {
-    //   selectedPrj.tasks.push(task);
-    //   return selectedPrj;
-    // });
-    // setSelectedProject((prj) => {
-    //   // prj.tasks.push(newTask);
-    //   const updPrj = prj;
-    //   updPrj.tasks = [
-    //     newTask,
-    //     ...updPrj.tasks
-    //   ];
-    //   return updPrj;
-    // })
-    console.log(newTask);
-    console.log(selectedProject);
+
+    setProjects(prevProjects =>
+      [...prevProjects.map(project => project.title === keyTitle ? { ...project, tasks: [...project.tasks, newTask] } : project)])
+
+    setSelectedProject(prevProject => ({ ...prevProject, tasks: [...prevProject.tasks, newTask] }));
+  }
+
+  function handleDeleteTask(keyTitle, selectedTask) {
+    setProjects(prevProjects =>
+      [...prevProjects.map(project => project.title === keyTitle ? { ...project, tasks: project.tasks.filter(element => (element !== selectedTask)) } : project)])
+
+    setSelectedProject(prevProject => ({ ...prevProject, tasks:prevProject.tasks.filter(element => (element !== selectedTask)) }));
+  }
+
+  function handleDeleteProject(keyTitle) {
+    setProjects(prevProjects => prevProjects.filter(project => (project.title !== keyTitle)));
+    setSelectedProject(undefined);
   }
 
   return (
@@ -83,14 +82,16 @@ function App() {
       {isAddPrj &&
         <CreateProject
           onSave={handleCreateProject}
-          onExit={handleCancelCreateProject}
+          onCancel={handleCancelCreateProject}
+          onCheckDuplicate={(title) => !!projects.find(project => {return project.title === title})}
         />}
-      {console.log(projects)}
       {selectedProject &&
         <Project
           prj={selectedProject}
           ref={taskProject}
           onAddTask={handleAddTask}
+          onDeleteTask={handleDeleteTask}
+          onDeleteProject={handleDeleteProject}
         />}
     </>
   );

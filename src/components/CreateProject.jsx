@@ -1,23 +1,29 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 
-export default function CreateProject({ onSave, onCancel }) {
+const CreateProject = ({ onSave, onCancel, onCheckDuplicate }) => {
+    const [messageError, setMessageError] = useState('');
     const title = useRef();
     const date = useRef();
     const description = useRef();
 
-    let project = {
-        title: '',
-        date: '',
-        description: ''
-    }
-
     function handleSave() {
-        project = {
-            title: title.current.value,
-            date: date.current.value,
-            description: description.current.value
-        }
-        onSave(project);
+        const inputTitle = title.current.value.trim();
+        const inputDescription = description.current.value.trim();
+        const inputDate = date.current.value.trim();
+        let validError = "";
+
+        if (inputTitle.length == 0) validError += "The title cant be empty.\n";
+        if (inputTitle.length > 50) validError += "The title is too long.\n";
+        if (inputDescription.length > 200) validError += "The description is too long.\n";
+        if (inputDate == 0) validError += "Date not selected.\n";
+        if (onCheckDuplicate(inputTitle)) validError += `Project "${inputTitle}" already exists.`;
+
+        validError.length !== 0 ? setMessageError(validError) :
+            onSave({
+                title: title.current.value,
+                date: date.current.value,
+                description: description.current.value
+            })
     }
 
     return (
@@ -58,6 +64,11 @@ export default function CreateProject({ onSave, onCancel }) {
                     />
                 </div>
             </div >
+            <div className="py-2 whitespace-pre-line text-red-800">
+                {messageError}
+            </div>
         </div>
     );
 }
+
+export default CreateProject;

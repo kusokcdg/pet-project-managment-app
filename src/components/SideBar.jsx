@@ -1,6 +1,6 @@
-export default function SideBar({ createdProjects, isDisable, onAddPrj, onClickProject }) {
-    const listTitles = createdProjects.length > 0 ? createdProjects.map(prj => prj.title) : [];
-    const isEmptyListTitle = listTitles.length > 0 ? true : false;
+const SideBar = ({ createdProjects, isDisable, onAddPrj, onClickProject }) => {
+    const listTitles = createdProjects.length ? createdProjects.map(prj => prj.title) : []; // without ternary
+    const isEmptyListTitle = listTitles.length ? true : false;
 
     return (
         <aside className="fixed top-16 h-screen w-64 rounded-tr-[20px] bg-stone-900">
@@ -11,23 +11,6 @@ export default function SideBar({ createdProjects, isDisable, onAddPrj, onClickP
             >
                 + Add Project
             </button>
-
-            {/* <ul className="flex flex-col break-words  relative top-16 p-8 space-y-4  text-zinc-500 ">
-                <li>
-                    <button className="text-left w-full pl-2 py-1 rounded-sm hover:bg-neutral-600 hover:text-stone-300"
-                        disabled={isDisable}
-                    >
-                        ASDtitle1
-                    </button>
-                </li>
-                <li>
-                    <button className="text-left w-full pl-2 py-1 rounded-sm hover:bg-neutral-600 hover:text-stone-300">The longest word in any of the major English language dictionaries is asdasdasdasldjaslkdjaslda;smda;lskda;lksa</button>
-                </li>
-                <li>
-                    <button className="text-left w-full pl-2 py-1 rounded-sm hover:bg-neutral-600 hover:text-stone-300">title2</button>
-                </li>
-                {listTitles}
-            </ul> */}
 
             {isEmptyListTitle &&
                 <ul className="flex flex-col break-words  relative top-16 p-8 space-y-4  text-zinc-500 ">
@@ -47,3 +30,5 @@ export default function SideBar({ createdProjects, isDisable, onAddPrj, onClickP
         </aside>
     );
 }
+
+export default SideBar;

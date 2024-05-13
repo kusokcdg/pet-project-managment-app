@@ -1,6 +1,6 @@
 import logo from '../assets/no-projects.png';
 
-export default function Entry({onAddPrj}) {
+const Entry = ({onAddPrj}) => {
     return (
         <div className="p-4 ml-64 mt-28 ">
             <div className=' py-2 px-4 flex flex-col items-center justify-center'>
@@ -23,3 +23,5 @@ export default function Entry({onAddPrj}) {
         </div>
     );
 }
+
+export default Entry;
