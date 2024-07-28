@@ -12,13 +12,13 @@ const CreateProject = ({ onSave, onCancel, onCheckDuplicate }) => {
         const inputDate = date.current.value.trim();
         let validError = "";
 
-        if (inputTitle.length == 0) validError += "The title cant be empty.\n";
+        if (!inputTitle.length) validError += "The title cant be empty.\n";
         if (inputTitle.length > 50) validError += "The title is too long.\n";
         if (inputDescription.length > 200) validError += "The description is too long.\n";
-        if (inputDate == 0) validError += "Date not selected.\n";
+        if (!inputDate) validError += "Date not selected.\n";
         if (onCheckDuplicate(inputTitle)) validError += `Project "${inputTitle}" already exists.`;
 
-        validError.length !== 0 ? setMessageError(validError) :
+        validError.length ? setMessageError(validError) :
             onSave({
                 title: title.current.value,
                 date: date.current.value,

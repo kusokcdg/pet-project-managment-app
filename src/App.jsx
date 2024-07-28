@@ -10,7 +10,7 @@ const TEMP = [
     title: "Vacation",
     date: "2024-05-09",
     description: "Tracking the tasks I’ll be doing on vacation.",
-    tasks: ['Learn React','Visit Grodno','Introduce girlfriend to parents']
+    tasks: ['Learn React', 'Visit Grodno', 'Introduce girlfriend to parents']
   }
 ];
 
@@ -18,7 +18,7 @@ function App() {
   const [projects, setProjects] = useState(TEMP);
   const [selectedProject, setSelectedProject] = useState(TEMP[0]);
 
-  const [isAddPrj, setIsAddPrj] = useState(false);  
+  const [isAddPrj, setIsAddPrj] = useState(false);
   const taskProject = useRef(null);
 
   function handleAddPrj() {
@@ -28,24 +28,18 @@ function App() {
 
   function handleCreateProject(objPrj) {
     setProjects((prevProjects) => {
-      objPrj.tasks = [];
-      const updatedProjects =
-        [...prevProjects,
-          objPrj
-        ];
-
-      return updatedProjects;
+      return [...prevProjects, { ...objPrj, tasks: [] }];
     });
-    setIsAddPrj((isAddPrj) => !isAddPrj);
+    setIsAddPrj(!isAddPrj);
   }
 
   function handleCancelCreateProject() {
-    setIsAddPrj((isAddPrj) => !isAddPrj);
+    setIsAddPrj(!isAddPrj);
   }
 
   function handleChooseProject(createdProjects, chooseTitle) {
     setSelectedProject(createdProjects.find(
-      project =>  project.title === chooseTitle));
+      project => project.title === chooseTitle));
   }
 
   function handleAddTask(keyTitle) {
@@ -62,7 +56,7 @@ function App() {
     setProjects(prevProjects =>
       [...prevProjects.map(project => project.title === keyTitle ? { ...project, tasks: project.tasks.filter(element => (element !== selectedTask)) } : project)])
 
-    setSelectedProject(prevProject => ({ ...prevProject, tasks:prevProject.tasks.filter(element => (element !== selectedTask)) }));
+    setSelectedProject(prevProject => ({ ...prevProject, tasks: prevProject.tasks.filter(element => (element !== selectedTask)) }));
   }
 
   function handleDeleteProject(keyTitle) {
@@ -83,7 +77,7 @@ function App() {
         <CreateProject
           onSave={handleCreateProject}
           onCancel={handleCancelCreateProject}
-          onCheckDuplicate={(title) => !!projects.find(project => {return project.title === title})}
+          onCheckDuplicate={(title) => !!projects.find(project => { return project.title === title })}
         />}
       {selectedProject &&
         <Project
